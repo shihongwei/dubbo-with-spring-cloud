@@ -110,7 +110,7 @@ public class SampleController {
     DubboConsumerSample dubboConsumerSample;
 
     /* Generic mode, no dependices */
-    @RequestMapping(value = "/callDubboBaseGeneric/")
+    @RequestMapping(value = "/callDubboBaseGeneric")
     public String callDubboBaseGeneric(){
         Object o =  dubboConsumerSample.callDubboService("activityServiceWithGeneric",
                 "findActivityApplyDetailed",
@@ -120,10 +120,15 @@ public class SampleController {
     }
 
     /* Interface mode, dependices */
-    @RequestMapping(value = "/callDubboBaseInterface/")
+    @RequestMapping(value = "/callDubboBaseInterface")
     public String callDubboBaseInterface() throws Exception {
         Object model =  dubboConsumerSample.findActivityApplyDetailed("58dcbe68a294435b49ee093f");
         return JSONObject.toJSONString(model);
+    }
+
+    @RequestMapping(value = "/dubboSay")
+    public String dubboSay() throws Exception {
+        return dubboConsumerSample.callDubboSay("world");
     }
 
 }

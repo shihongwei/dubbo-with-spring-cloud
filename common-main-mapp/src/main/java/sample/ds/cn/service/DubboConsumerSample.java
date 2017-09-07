@@ -17,6 +17,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class DubboConsumerSample {
 
+    @Autowired
+    private DubboSay dubboSay;
+
+    public String callDubboSay(String word){
+        return dubboSay.dubboSayHello(word);
+    }
+
+
+
     /* Generic mode, no dependices */
     public Object callDubboService(String dubboServiceName, String methodName, String[] paramTypes, Object[] paramValues) {
         GenericService genericService = (GenericService) ContextUtil.getBean(dubboServiceName);

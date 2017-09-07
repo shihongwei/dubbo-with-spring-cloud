@@ -5,15 +5,17 @@
        default-lazy-init="true">
 
     <description>Redis配置文件</description>
-
+	<!--
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">				
 		<property name="maxIdle" value="${GAC_REDIS_POOL_MAXIDLE}" />
 		<property name="minIdle" value="${GAC_REDIS_POOL_MINIDLE}"/>
 		<property name="maxTotal" value="${GAC_REDIS_POOL_MAXTOTAL}" />
 		<property name="maxWaitMillis" value="${GAC_REDIS_POOL_MAXWAITMILLIS}" />
 	</bean>
+	-->
 
 	<!-- redis cluster 配置 -->
+	<!--
 	<bean id="jedisCluster" class="redis.clients.jedis.JedisCluster">
 		<constructor-arg index="0">
 			<set>
@@ -34,8 +36,10 @@
 		<constructor-arg index="1" type="int" name="timeout" value="${GAC_REDIS_POOL_TIMEOUT}"/>
 		<constructor-arg index="2" ref="jedisPoolConfig" />
 	</bean>
+	-->
 
 	<!-- redis cluster 配置 -->
+	<!--
 	<bean id="jedisClusterSso" class="redis.clients.jedis.JedisCluster">
 		<constructor-arg index="0">
 			<set>
@@ -56,15 +60,15 @@
 		<constructor-arg index="1" type="int" name="timeout" value="${GAC_REDIS_POOL_TIMEOUT}"/>
 		<constructor-arg index="2" ref="jedisPoolConfig" />
 	</bean>
-
+	-->
 
 	<!-- Redis分布式锁配置，redis使用单机模式，不需要Slave和Cluster -->
-
+	<!--
 	<bean id="jedisTemplate" class="com.gac.common.redis.impl.JedisClusterTemplate">
 		<constructor-arg index="0" ref="jedisCluster" />
 	</bean>
 	<bean id="jedisTemplateSso" class="com.gac.common.redis.impl.JedisClusterTemplate">
 		<constructor-arg index="0" ref="jedisClusterSso" />
 	</bean>
-
+	-->
 </beans>
