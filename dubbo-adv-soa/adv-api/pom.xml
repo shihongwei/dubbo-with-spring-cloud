@@ -16,11 +16,13 @@
 	<name>adv-api</name>
 
 	<dependencies>
+		<!--
 		<dependency>
             <groupId>com.gac.common</groupId>
             <artifactId>common-event</artifactId>
             <version>1.0.1-SNAPSHOT</version>
         </dependency>
+        -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>dubbo</artifactId>

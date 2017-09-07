@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd"
+	default-lazy-init="true">
+
+	<description>Spring公共配置文件</description>
+	<context:component-scan base-package="com.gac" />
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<!--
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:conf/mybatis/mybatis-config.xml"/>
+		<property name="mapperLocations">
+			<list>
+				<value>classpath*:/mapper/*Mapper.xml</value>
+			</list>
+		</property>
+		<property name="plugins">
+			<ref bean="offsetLimitInterceptor" />
+		</property>
+	</bean>
+
+	<bean id="offsetLimitInterceptor" class="com.gac.core.mybatis.pagination.OffsetLimitInterceptor">
+		<property name="dialectClass" value="com.gac.core.mybatis.dialect.MySQLDialect" />
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+		<property name="basePackage" value="com.gac.adv.dao" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+
+	-->
+
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
+	<bean id="springContextHolder" class="com.gac.common.properties.SpringContextHolder" lazy-init="false">
+	</bean>
+
+	<!--
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${JDBC_DRIVERCLASSNAME}" />
+		<property name="url"
+			value="jdbc:mysql://${GAC_CMS_DB_HOST}:${GAC_CMS_DB_PORT}/${GAC_CMS_DB_NAME}?autoReconnect=true&amp;autoReconnectForPools=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true&amp;zeroDateTimeBehavior=convertToNull" />
+		<property name="username" value="${GAC_CMS_DB_USERNAME}" />
+		<property name="password" value="${GAC_CMS_DB_PASSWORD}" />
+		<property name="maxActive" value="${JDBC_MAXACTIVE}" />
+		<property name="maxIdle" value="${JDBC_MAXIDLE}" />
+		<property name="maxWait" value="${JDBC_MAXWAIT}" />
+		<property name="initialSize" value="${JDBC_INITIALSIZE}" />
+		<property name="minIdle" value="${JDBC_MINIDLE}" />
+		<property name="testOnBorrow" value="${JDBC_TESTONBORROW}" />
+		<property name="validationQuery" value="${JDBC_VALIDATIONQUERY}" />
+	</bean>
+	-->
+
+	<beans profile="uat">
+		<bean name="propertiesHolder" class="com.gac.common.properties.CustomizedPropertyPlaceholderConfigurer">
+			<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+			<property name="ignoreResourceNotFound" value="true" />
+			<property name="fileEncoding" value="utf-8" />
+			<property name="locations">
+				<list>
+					<value>classpath*:/properties/uat/*.properties</value>
+					<value>classpath*:/properties/*.properties</value>
+				</list>
+			</property>
+		</bean>
+	</beans>
+	<beans profile="development">
+		<bean name="propertiesHolder" class="com.gac.common.properties.CustomizedPropertyPlaceholderConfigurer">
+			<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+			<property name="ignoreResourceNotFound" value="true" />
+			<property name="fileEncoding" value="utf-8" />
+			<property name="locations">
+				<list>
+					<value>classpath*:/properties/development/*.properties</value>
+					<value>classpath*:/properties/*.properties</value>
+				</list>
+			</property>
+		</bean>
+	</beans>
+	<beans profile="local">
+		<bean name="propertiesHolder" class="com.gac.common.properties.CustomizedPropertyPlaceholderConfigurer">
+			<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+			<property name="ignoreResourceNotFound" value="true" />
+			<property name="fileEncoding" value="utf-8" />
+			<property name="locations">
+				<list>
+					<value>classpath*:/properties/local/*.properties</value>
+					<value>classpath*:/properties/*.properties</value>
+				</list>
+			</property>
+		</bean>
+	</beans>
+	
+	<beans profile="production">
+		<bean name="propertiesHolder" class="com.gac.common.properties.CustomizedPropertyPlaceholderConfigurer">
+			<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+			<property name="ignoreResourceNotFound" value="true" />
+			<property name="fileEncoding" value="utf-8" />
+			<property name="locations">
+				<list>
+					<value>classpath*:/properties/production/*.properties</value>
+					<value>classpath*:/properties/*.properties</value>
+				</list>
+			</property>
+		</bean>
+	</beans>
+
+</beans>
+
+

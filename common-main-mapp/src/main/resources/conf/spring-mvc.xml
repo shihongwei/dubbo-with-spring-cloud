@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+
+	<!--<context:component-scan base-package="com.gac.mobile.commonApi.api"-->
+		<!--use-default-filters="false">-->
+		<!--<context:include-filter type="annotation"-->
+			<!--expression="org.springframework.stereotype.Controller" />-->
+	<!--</context:component-scan>-->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<!-- <bean name="applicationSwaggerConfig" class="com.gac.mobile.commonApi.configuration.SwaggerConfig"></bean> -->
+	<!-- <mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/**"/> <bean 
+		class="com.gac.mobile.interceptor.LogInterceptor" /> </mvc:interceptor> </mvc:interceptors> -->
+<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.gac.mobile.interceptor.AuthorizationInterceptor">
+				<property name="isCheckVerifyUri" value="true"/>
+				<property name="verifyUris">
+					<list>
+						<value>/common-main-mapp/headlines-mapi/addComment</value>
+					</list>
+				</property>
+				<property name="ignoreVerifyUris">
+					<list>
+						<!--  <value>/entityGoods-mapi/view</value>
+						 <value>/spray-mapi/index</value>
+						 <value>/activityGoods-mapi/activitySkuList</value>
+						 <value>/cart-mapi/addCar</value>
+						 <value>/cart-mapi/cartInfoView</value>
+						 <value>/cart-mapi/update/quantity</value>
+						 <value>/cart-mapi/updateStatus</value>
+						 <value>/beauty-mapi/wash/</value> -->
+					</list>
+				</property>
+
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes" value="text/plain;charset=UTF-8" />
+			</bean>
+			<bean
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="objectMapper">
+					<bean class="com.fasterxml.jackson.databind.ObjectMapper">
+						<property name="dateFormat">
+							<bean class="java.text.SimpleDateFormat">
+								<constructor-arg value="yyyy-MM-dd HH:mm:ss" />
+							</bean>
+						</property>
+					</bean>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<!-- <mvc:resources mapping="/swagger/**" location="/swagger/" /> -->
+	<mvc:default-servlet-handler />
+	
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding">
+			<value>UTF-8</value>
+		</property>
+	</bean>
+
+</beans>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd"
+       default-lazy-init="true">
+
+    <description>Event配置文件</description> 
+    
+    <!--这个是队列目的地，点对点的-->
+    <!--<bean id="componentQueueDestination" class="org.apache.activemq.command.ActiveMQQueue">-->
+        <!--<constructor-arg value="${GAC_QUEUE_COMPONENT}"/>-->
+    <!--</bean>-->
+    
+    <!--监听器配置-->
+    <!--<bean id="componentEventListener" class="com.gac.mobile.event.listener.ComponentEventListener">-->
+        <!--<property name="focus" value="${GAC_EVENT_COMPONENT}"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="componentEventNotifier" class="com.gac.common.event.local.BusinessEventLocalNotifierImpl">-->
+        <!--<constructor-arg>-->
+            <!--<list>-->
+                <!--<ref bean="componentEventListener"/>-->
+            <!--</list>-->
+        <!--</constructor-arg>-->
+    <!--</bean>-->
+    <!-- 消息监听器 -->
+    <!--<bean id="componentEventSource" class="com.gac.common.event.BusinessEventSource">-->
+        <!--<property name="notifier" ref="componentEventNotifier"/>-->
+    <!--</bean>-->
+    <!-- 消息监听器 -->
+    <!--<bean id="componentMessageListener" class="com.gac.common.event.queue.BusinessModelEventMessageListener">-->
+        <!--<property name="eventSource" ref="componentEventSource"/>-->
+    <!--</bean>-->
+    <!-- 消息监听容器 -->
+    <!--<bean id="componentJmsSeriesContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">-->
+        <!--<property name="connectionFactory" ref="connectionFactory"/>-->
+        <!--<property name="destination" ref="componentQueueDestination"/>-->
+        <!--<property name="messageListener" ref="componentMessageListener"/>-->
+    <!--</bean>-->
+       
+</beans>

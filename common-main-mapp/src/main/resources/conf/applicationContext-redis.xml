@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd"
+       default-lazy-init="true">
+
+    <description>Redis配置文件</description>
+
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">				
+		<property name="maxIdle" value="${GAC_REDIS_POOL_MAXIDLE}" />
+		<property name="minIdle" value="${GAC_REDIS_POOL_MINIDLE}"/>
+		<property name="maxTotal" value="${GAC_REDIS_POOL_MAXTOTAL}" />
+		<property name="maxWaitMillis" value="${GAC_REDIS_POOL_MAXWAITMILLIS}" />
+	</bean>
+
+	<!-- redis cluster 配置 -->
+	<bean id="jedisCluster" class="redis.clients.jedis.JedisCluster">
+		<constructor-arg index="0">
+			<set>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg index="0" value="${GAC_APP_REDIS_HOST1}"/>
+					<constructor-arg index="1" value="${GAC_APP_REDIS_PORT1}" type="int"/>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg index="0" value="${GAC_APP_REDIS_HOST2}"/>
+					<constructor-arg index="1" value="${GAC_APP_REDIS_PORT2}" type="int"/>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg index="0" value="${GAC_APP_REDIS_HOST3}"/>
+					<constructor-arg index="1" value="${GAC_APP_REDIS_PORT3}" type="int"/>
+				</bean>
+			</set>
+		</constructor-arg>
+		<constructor-arg index="1" type="int" name="timeout" value="${GAC_REDIS_POOL_TIMEOUT}"/>
+		<constructor-arg index="2" ref="jedisPoolConfig" />
+	</bean>
+
+	<!-- redis cluster 配置 -->
+	<bean id="jedisClusterSso" class="redis.clients.jedis.JedisCluster">
+		<constructor-arg index="0">
+			<set>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg index="0" value="${GAC_SSO_REDIS_HOST1}"/>
+					<constructor-arg index="1" value="${GAC_SSO_REDIS_PORT1}" type="int"/>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg index="0" value="${GAC_SSO_REDIS_HOST2}"/>
+					<constructor-arg index="1" value="${GAC_SSO_REDIS_PORT2}" type="int"/>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg index="0" value="${GAC_SSO_REDIS_HOST3}"/>
+					<constructor-arg index="1" value="${GAC_SSO_REDIS_PORT3}" type="int"/>
+				</bean>
+			</set>
+		</constructor-arg>
+		<constructor-arg index="1" type="int" name="timeout" value="${GAC_REDIS_POOL_TIMEOUT}"/>
+		<constructor-arg index="2" ref="jedisPoolConfig" />
+	</bean>
+
+
+	<!-- Redis分布式锁配置，redis使用单机模式，不需要Slave和Cluster -->
+
+	<bean id="jedisTemplate" class="com.gac.common.redis.impl.JedisClusterTemplate">
+		<constructor-arg index="0" ref="jedisCluster" />
+	</bean>
+	<bean id="jedisTemplateSso" class="com.gac.common.redis.impl.JedisClusterTemplate">
+		<constructor-arg index="0" ref="jedisClusterSso" />
+	</bean>
+
+</beans>

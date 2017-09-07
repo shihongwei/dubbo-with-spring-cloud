@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd"
+       default-lazy-init="true">
+
+    <description>articleAddErpInfo配置文件</description>
+	
+	    <!--这个是队列目的地，点对点的-->
+    <!--<bean id="componentQueueDestination" class="org.apache.activemq.command.ActiveMQQueue">-->
+        <!--<constructor-arg value="${GAC_QUEUE_COMPONENT}"/>-->
+    <!--</bean>-->
+    
+    <!-- 消息队列产生器 -->
+	<!--<bean id="componentMessageProducer" class="com.gac.common.activemq.NotifyMessageProducer">-->
+		<!--<property name="jmsTemplate" ref="jmsTemplate" />-->
+		<!--<property name="notifyQueue" ref="componentQueueDestination"/>-->
+	<!--</bean>-->
+	<!-- 消息通知器 -->
+	<!--<bean id="componentNotifierSend" class="com.gac.common.event.queue.BusinessEventQueueNotifier">-->
+		<!--<property name="messageProducer" ref="componentMessageProducer" />-->
+		<!--<property name="queue" value="true" />-->
+	<!--</bean>-->
+	<!-- 消息源 -->
+	<!--<bean id="componentEventSourceSend" class="com.gac.common.event.BusinessEventSource">-->
+		<!--<property name="notifier" ref="componentNotifierSend" />-->
+	<!--</bean>	-->
+</beans>

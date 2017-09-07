@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd"
+       default-lazy-init="true">
+
+    <description>Event配置文件</description> 
+    
+    <!--这个是队列目的地，点对点的-->
+    <!--<bean id="articleAddErpInfoQueueDestination" class="org.apache.activemq.command.ActiveMQQueue">-->
+        <!--<constructor-arg value="${ARTICLE-MODIFY-QUEUE}"/>-->
+    <!--</bean>-->
+    
+    <!--监听器配置-->
+    <!--<bean id="articleAddEventListener" class="com.gac.mobile.event.listener.ArticleAddEventListener">-->
+        <!--<property name="focus" value="${ARTICLE-MODIFY-EVENT}"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="articleEventNotifier" class="com.gac.common.event.local.BusinessEventLocalNotifierImpl">-->
+        <!--<constructor-arg>-->
+            <!--<list>-->
+                <!--<ref bean="articleAddEventListener"/>-->
+            <!--</list>-->
+        <!--</constructor-arg>-->
+    <!--</bean>-->
+    <!-- 消息监听器 -->
+    <!--<bean id="articleEventSource" class="com.gac.common.event.BusinessEventSource">-->
+        <!--<property name="notifier" ref="articleEventNotifier"/>-->
+    <!--</bean>-->
+    <!-- 消息监听器 -->
+    <!--<bean id="articleModelIndexMessageListener" class="com.gac.common.event.queue.BusinessModelEventMessageListener">-->
+        <!--<property name="eventSource" ref="articleEventSource"/>-->
+    <!--</bean>-->
+    <!-- 消息监听容器 -->
+    <!--<bean id="articleJmsSeriesContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">-->
+        <!--<property name="connectionFactory" ref="connectionFactory"/>-->
+        <!--<property name="destination" ref="articleAddErpInfoQueueDestination"/>-->
+        <!--<property name="messageListener" ref="articleModelIndexMessageListener"/>-->
+    <!--</bean>-->
+       
+</beans>

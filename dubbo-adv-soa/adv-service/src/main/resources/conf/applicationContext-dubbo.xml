@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+
+
+	<dubbo:application name="adv" owner="gac-adv" organization="dubbox" />
+	<dubbo:provider filter="TraceCallee"/>
+	<dubbo:consumer check="false" filter="TraceCaller"/>
+	<dubbo:registry protocol="${GAC_DUBBO_REG_PROTOCOL}" address="${GAC_DUBBO_REG_URL}" />
+	<!--
+    <dubbo:protocol name="dubbo" port="${GAC_DUBBO_PROTOCOL_PORT}" serialization="java" optimizer="com.gac.adv.serialization.SerializationOptimizerImpl" threadpool="fixed" threads="${GAC_DUBBO_PROTOCOL_THREADS_NUM}" />
+	-->
+
+	<!--<import resource="classpath:META-INF/spring/dubbo-adv-service.xml" />-->
+	<import resource="classpath:META-INF/spring/dubbo-sample.service.xml" />
+
+</beans>
